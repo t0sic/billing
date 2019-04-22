@@ -29,6 +29,6 @@ Do not rename the resource, it won't work if you do.
 
 # [ Preview ]
 - https://streamable.com/1locp
-- 
+
 # [ Credits ]
 - credits to gamz, zeaqy and hazze for doing some lua parts.
