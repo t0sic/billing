@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+</head>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+<body>
+    <div class="overlay">
+        <div class="wrap">
+            <div class="faktura">
+                <div id="reciver"></div>
+                <div id="sender"></div>
+                <form class="pure-form">
+                    <div id="faktura-date">
+                        <input id="date" type="date">
+                    </div>
+                    <br>
+                    <textarea placeholder="beskrivning.." id="inner" type="text"></textarea>
+                    <br>
+                    <input placeholder="belopp" id="belop" type="number">
+                    <br>
+                    <button type='submit' id="send">Send</button>
+                    <button type='pay' id="pay">Pay</button>
+                </form>
+                <div class="belop-upkey"><p id="belop-upkey"></p></div>
+                <p id="error"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

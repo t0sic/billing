@@ -1,0 +1,176 @@
+/* HTML */
+html {
+    font-family: 'Titillium Web', sans-serif;
+    overflow: hidden;
+   
+}
+
+textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    resize: none;
+    width: 43%;
+    height: 20vw;
+}
+
+textarea:focus, input:focus{
+    outline: 0;
+}
+
+*:focus {
+    outline: 0;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+/* ID's */
+
+#faktura-date {
+    margin-left: 18%;
+}
+
+#date {
+    position: absolute;
+    border: none;
+    margin-left: 21%;
+    margin-top: 3.4%;
+    font-size: 90%;
+    font-weight: bold;
+}
+
+#inner {
+    font-family: 'Titillium Web', sans-serif;
+    overflow: auto;
+    -moz-appearance:none;
+    outline:0px none transparent;
+    margin-top: 58%;
+    font-size: 70%;
+    font-weight: bold;
+    margin-left: 19%;
+    border: none;
+}
+
+#error {
+    position: absolute;
+    margin-top: -1%;
+    font-size: 80%;
+    margin-left: 16%;
+    color: rgb(255, 4, 4);
+}
+
+#inner:hover {
+    transition: 500ms;
+    background: #dddddd
+}
+
+#inner:active {
+    background-color: white;
+}
+
+#reciver {
+    position: absolute;
+    position: absolute;
+    margin-top: 8%;
+    margin-left: 16.6%;
+    font-size: 80%;
+}
+
+#sender {
+    position: absolute;
+    margin-top: 8%;
+    margin-left: 1.25%;
+    font-size: 80%;
+}
+
+#belop {
+    font-family: 'Titillium Web', sans-serif;
+    margin-left: 27%;
+    margin-top: -20.31%;
+    position: absolute;
+    width: 3.5%;
+    border: none;
+    font-size: 70%;
+    font-weight: bold;
+}
+
+#belop:hover {
+    transition: 500ms;
+    background: #dddddd;    
+}
+
+#send {
+    border: none;
+    padding: 2% 4% 2% 4%;
+    background: #2e2929;
+    color: white;
+    margin-top: 20%;
+    margin-left: 85.5%;
+}
+
+#send:hover {
+    transition: 500ms;
+    background-color: #2aca0a
+}
+
+#pay {
+    border: none;
+    padding: 2% 4% 2% 4%;
+    background: #2e2929;
+    color: white;
+    margin-top: 20%;
+    margin-left: 85.5%;
+}
+
+#pay:hover {
+    transition: 500ms;
+    background-color: #2aca0a
+    position: absolute;
+}
+
+#belop-upkey::after {
+    content: ' SEK'
+}
+
+
+/* Classes */
+
+.overlay {
+    display: none;
+}
+
+.belop-upkey {
+    font-size: 90%;
+    font-weight: bold;
+    position: absolute;
+    margin-top: -6.8%;
+    margin-left: 25%;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.wrap {
+    margin-left: 30%;
+}
+
+.faktura {
+    padding: 4%;
+    width: 45%;
+    height: 50vw;
+    background: url(../img/faktura.jpg) no-repeat;
+    background-size: 95%;
+    background-position: center;
+    margin-top: -4%;
+}
