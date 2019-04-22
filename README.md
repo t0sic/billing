@@ -1,5 +1,7 @@
 > t0sic_billing
 
+DO NOT USE IT IF YOU DON*T KNOW WHAT YOU ARE DOING
+
 
 Do not rename the resource, it won't work if you do.
 
