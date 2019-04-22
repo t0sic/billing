@@ -1,18 +1,34 @@
-# t0sic_inventoryui
+> t0sic_billing
 
-Hello I decided to release my billing with a UI
 
-### Credits
+Do not rename the resource, it won't work if you do.
 
-Credits to hazze and gamz for helping me with this script
+# [ Installation ]
+- Drag and drop it in your resource folder
+- add it to your server cfg. 
+- Replace all the esx_billing events.
+ 
+> To fetch received invoices you do following.
+```lua
+    exports["t0sic_billing"]:FetchBillings()
+```
 
-### REQUIERMENTS
+#
 
-You need ESX
+> To send invoices you do following.
+```lua
+    exports["t0sic_billing"]:SendBilling()
+```
 
-### INSTALATION
+#
 
-Do not rename the resource, it won't work if you do
+> To view sent invoices you do following.
+```lua
+    exports["t0sic_billing"]:SentBillings()
+```
 
-Drag and drop it in your resource folder and add it to your sever cfg. 
-You need to replace the standard events in the esx jobs. When you wanna send a billing 
+# [ Preview ]
+- https://streamable.com/1locp
+- 
+# [ Credits ]
+- credits to gamz, zeaqy and hazze for doing some lua parts.
