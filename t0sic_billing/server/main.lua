@@ -12,6 +12,7 @@ AddEventHandler("t0sic-billing:insert", function(data, player)
     local target = ESX.GetPlayerFromId(player)
     local result = GetCharacterName(xPlayer.identifier)
     local result2 = GetCharacterName(target.identifier)
+    local xTarget = ESX.GetPlayerFromIdentifier(target)
 
     local name = result[1]["firstname"] .. ' ' .. result[1]["lastname"]
     local receiverName = result2[1]["firstname"] .. ' ' .. result2[1]["lastname"]
@@ -19,7 +20,7 @@ AddEventHandler("t0sic-billing:insert", function(data, player)
     TriggerClientEvent("esx:showNotification", src, "You have sent an invoice to ".. receiverName)
     TriggerClientEvent("esx:showNotification", target, "You received an invoice by " .. name)
     
-    MySQL.Async.execute("INSERT INTO user_billings (identifier, reason, date, amount, sender, senderName, receiverName) VALUES (@identifier, @reason, @date, @amount, @sender, @senderName, @receiverName)",
+    MySQL.Async.execute("INSERT INTO user_billings (identifier, reason, date, amount, sender, senderName, receiverName, jobb) VALUES (@identifier, @reason, @date, @amount, @sender, @senderName, @receiverName, @jobb)",
 
         {
             ['@identifier']  = target["identifier"],
@@ -28,7 +29,8 @@ AddEventHandler("t0sic-billing:insert", function(data, player)
             ['@amount']      = data["sum"],
             ['@sender']      = xPlayer["identifier"],
             ["senderName"]   = name,
-            ["receiverName"] = receiverName
+            ["receiverName"] = receiverName,
+            ["jobb"]         = xPlayer.getJob().name
 
         }
     )
@@ -69,8 +71,9 @@ ESX.RegisterServerCallback("t0sic-billing:fetchBillings", function(source, cb)
                 identifier      = result[i]["identifier"],
                 sender          = result[i]["sender"],
                 senderName      = result[i]["senderName"],
-                receiverName    = result[i]["receiverName"]
-
+                receiverName    = result[i]["receiverName"],
+                jobb            = result[i]["jobb"]
+                
             })
         end
         cb(bills)
@@ -82,21 +85,37 @@ RegisterServerEvent("t0sic-billing:payBill")
 AddEventHandler("t0sic-billing:payBill", function(id, price)
 	local src = source
     local xPlayer = ESX.GetPlayerFromId(src)
-    if price ~= nil then
-        if xPlayer.getMoney() >= price then
-            
-            xPlayer.removeMoney(price)
-            
-            TriggerClientEvent("esx:showNotification", src, "You paid an invoice of $" .. price)
-        else
-            TriggerClientEvent("esx:showNotification", src, "You can't afford to pay this invoice.")
-        end
-    end
 
-    MySQL.Async.execute("DELETE from user_billings WHERE id = @id", {
-        ["@id"] = id
-    })
-    
+    MySQL.Async.fetchAll('SELECT * FROM user_billings WHERE id = @id', {
+        ['@id'] = id
+    }, function(result)
+
+
+    local targetType = result[1].target_type
+    local target     = result[1].sender
+    local amount     = result[1].amount
+    local jobb       = result[1].jobb
+
+        if price ~= nil then
+        
+            TriggerEvent('esx_addonaccount:getSharedAccount', "society_"..jobb, function(account) 
+            
+                if xPlayer.getMoney() >= price then
+            
+                    xPlayer.removeMoney(price)
+                    account.addMoney(amount)
+            
+                    TriggerClientEvent("esx:showNotification", src, "You paid an invoice of $" .. price)
+            
+                    MySQL.Async.execute("DELETE from user_billings WHERE id = @id", {
+                        ["@id"] = id
+                    }) 
+                else
+                    TriggerClientEvent("esx:showNotification", src, "You can't afford to pay this invoice.")
+                end
+            end)
+        end
+    end)
 end)
 
 ESX.RegisterServerCallback("t0sic_billing:fetchSent", function(source, cb)
@@ -139,5 +158,3 @@ GetCharacterName = function(identifier)
     local names = MySQL.Sync.fetchAll(fetch, {["@identifier"] = identifier})
     return names
 end
-
-
