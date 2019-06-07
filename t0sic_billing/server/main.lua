@@ -42,8 +42,8 @@ ESX.RegisterServerCallback("t0sic-billing:getCharacterNames", function(source, c
     local xPlayer = ESX.GetPlayerFromId(src)
     local receiverUser = ESX.GetPlayerFromId(receiver)
 
-    local receiverCharacter = GetCharacterName(xPlayer.identifier)
-    local senderCharacter = GetCharacterName(receiverUser.identifier)
+    local receiverCharacter = GetCharacterName(receiverUser.identifier)
+    local senderCharacter = GetCharacterName(xPlayer.identifier)
     
     cb(senderCharacter, receiverCharacter)
 
