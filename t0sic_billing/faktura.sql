@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `user_billings` (
   `sender` varchar(60) DEFAULT NULL,
   `receiverName` varchar(255) NOT NULL,
   `senderName` varchar(255) DEFAULT NULL,
+  `jobb` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 
