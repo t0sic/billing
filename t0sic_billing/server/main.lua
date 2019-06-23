@@ -18,7 +18,7 @@ AddEventHandler("t0sic-billing:insert", function(data, player)
     local receiverName = result2[1]["firstname"] .. ' ' .. result2[1]["lastname"]
 
     TriggerClientEvent("esx:showNotification", src, "You have sent an invoice to ".. receiverName)
-    TriggerClientEvent("esx:showNotification", target, "You received an invoice by " .. name)
+    TriggerClientEvent("esx:showNotification", player, "You received an invoice by " .. name)
     
     MySQL.Async.execute("INSERT INTO user_billings (identifier, reason, date, amount, sender, senderName, receiverName, jobb) VALUES (@identifier, @reason, @date, @amount, @sender, @senderName, @receiverName, @jobb)",
 
@@ -80,10 +80,9 @@ ESX.RegisterServerCallback("t0sic-billing:fetchBillings", function(source, cb)
     end)
 end)
 
-
 RegisterServerEvent("t0sic-billing:payBill")
 AddEventHandler("t0sic-billing:payBill", function(id, price)
-	local src = source
+    local src = source
     local xPlayer = ESX.GetPlayerFromId(src)
 
     MySQL.Async.fetchAll('SELECT * FROM user_billings WHERE id = @id', {
@@ -93,8 +92,13 @@ AddEventHandler("t0sic-billing:payBill", function(id, price)
 
     local targetType = result[1].target_type
     local target     = result[1].sender
+    local person     = result[1].identifier
+    local xTarget    = ESX.GetPlayerFromIdentifier(target)
     local amount     = result[1].amount
     local jobb       = result[1].jobb
+    local result     = GetCharacterName(person)
+
+    local name = result[1]["firstname"] .. ' ' .. result[1]["lastname"]
 
         if price ~= nil then
         
@@ -110,6 +114,9 @@ AddEventHandler("t0sic-billing:payBill", function(id, price)
                     MySQL.Async.execute("DELETE from user_billings WHERE id = @id", {
                         ["@id"] = id
                     }) 
+                    if xTarget then
+                        TriggerClientEvent("esx:showNotification", xTarget.source, "Du har fått betalt av " .. name)
+                    end
                 else
                     TriggerClientEvent("esx:showNotification", src, "You can't afford to pay this invoice.")
                 end
